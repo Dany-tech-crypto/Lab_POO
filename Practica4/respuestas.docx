@@ -1,0 +1,23 @@
+1. Diferencia entre extends e implements
+
+extends: Se utiliza para heredar el estado y el comportamiento de una clase padre.
+Usa extends, cuando compartas código base, constructores y atributos comunes entre clases muy emparentadas.
+
+implements: Se utiliza para firmar un contrato en el que una clase se compromete a escribir los métodos en una interfaz. 
+Sirve para dar capacidades transversales a clases que no necesariamente comparten la misma familia.
+Usa implements, cuando quieras asegurar que distintas clases cumplan con un conjunto específico de acciones o reglas.
+
+
+
+2. Ventaja de llamar super.atacar() en lugar de reescribir todo
+
+Evita la duplicación de código, asi si cambian el comportamiento genérico del ataque en la clase padre, 
+    todas las clases hijas que usen super.atacar() adoptarán el cambio automáticamente.
+
+
+
+3. Qué método se ejecuta con Personaje p = new Guerrero(...) al llamar a p.atacar()?
+
+Se ejecuta el método atacar() de la clase Guerrero.
+Aunque la variable contenedora sea del tipo general Personaje, Java determina el método a ejecutar basándose en el tipo real 
+    del objeto creado en memoria (Guerrero) al momento de la ejecución, respetando la sobrescritura (@Override).

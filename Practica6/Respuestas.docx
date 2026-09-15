@@ -1,0 +1,16 @@
+1. ¿Por qué Personaje debe ser abstracta y no concreta? ¿Qué problema resuelve?
+    R= Evita la instanciación directa, al ser abstracta, el compilador prohíbe hacer new Personaje(...).
+
+2. ¿Qué ventaja tiene que Druida implemente dos interfaces? ¿Podría extender dos clases en lugar de implementar dos interfaces?
+    R= Te permite otorgar múltiples roles o "superpoderes" independientes a la clase (por ejemplo, que el Druida sepa curar y 
+        además lanzar ataques mágicos) de forma modular.
+        Y no se puede tener dos clases ya que En Java la herencia múltiple de clases no está permitida (para evitar conflictos 
+        como el "problema del diamante").
+
+3. Si agregas un nuevo personaje Paladín que cura y combate físicamente, ¿qué clase extiende y qué interfaces implementa? 
+    ¿Tienes que modificar algo en las clases existentes?
+        R= Debe extender de Personaje (public class Paladin extends Personaje ...).
+            Debe implementar las interfaces correspondientes a sus capacidades (por ejemplo, la interfaz de curación que usa el 
+            Druida/Sanador y la interfaz de combate físico).
+            Y no tienes que modificar las clases existentes, este es uno de los mayores beneficios del diseño con clases abstractas 
+            e interfaces

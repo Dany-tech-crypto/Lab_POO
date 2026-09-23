@@ -1,0 +1,33 @@
+1. ¿Cuál es la diferencia entre sobreescritura (@Override) y sobrecarga (overload)? 
+    Da un ejemplo de cada uno tomado de este laboratorio.
+
+    - Sobreescritura (@Override): Ocurre cuando una subclase proporciona una implementación 
+      específica para un método que ya está definido en su clase padre, manteniendo exactamente 
+      la misma firma (nombre, parámetros y tipo de retorno).
+
+    - Sobrecarga (Overload): Ocurre dentro de la misma clase cuando se definen múltiples 
+      métodos con el mismo nombre pero con firmas diferentes (diferente número, orden o tipo 
+      de parámetros). 
+ ------------------------------------------------------------------------------
+
+ 2. Si tienes Personaje p = new Mago(...) y llamas p.calcularDanio(), ¿Java usa el 
+    método de Personaje o el de Mago? ¿Por qué?
+
+    - Java usa el método de la clase 'Mago'.
+    - ¿Por qué?: Esto ocurre gracias al polimorfismo y al mecanismo de "resolución dinámica de 
+      métodos" (o *dynamic method dispatch*).
+ ------------------------------------------------------------------------------
+
+ 3. ¿Para qué sirve instanceof? ¿En qué situaciones lo usarías en un sistema real?
+
+    - ¿Para qué sirve?: Es un operador de comparación en Java que permite verificar si un objeto 
+      en tiempo de ejecución es una instancia de una clase específica o implementa una interfaz, 
+      retornando true o false.
+    
+    - ¿En qué situaciones se usaría en un sistema real?:
+      1. Procesamiento de colecciones heterogéneas: Cuando tienes una lista de elementos generales 
+         (como un inventario o una cola de tareas) y necesitas aplicar lógicas o casteos específicos 
+         dependiendo del subtipo exacto del objeto.
+      2. Operaciones de guardado o filtrado: Por ejemplo, al exportar datos de una base de datos 
+         donde recorres una lista general de "Documentos" y necesitas verificar si un elemento 
+         específico es un "PDF", "Excel" o "Word" para aplicarle un formato de compresión distinto.

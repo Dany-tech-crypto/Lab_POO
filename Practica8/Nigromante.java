@@ -2,7 +2,7 @@ public class Nigromante extends Personaje{
     private int manaOscuro;
     private String maldicion;
 
-    public Nigromante(String nombre, int nivel, int puntosVida, int mana, int manaOscuro, String maldicion){
+    public Nigromante(String nombre, int nivel, int puntosVida, int manaOscuro, String maldicion){
         super(nombre, nivel, puntosVida);
         this.manaOscuro = manaOscuro;
         this.maldicion = maldicion;

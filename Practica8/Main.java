@@ -4,7 +4,7 @@ public class Main {
         
         // Sección 1: Roster
         gremio.agregarMiembro(new Druida("Sylva", 10, 300, 100, 50, "Oso"));
-        gremio.agregarMiembro(new Nigromante("Malachar", 8, 250, 120, 60, "Arte demoniaca"));
+        gremio.agregarMiembro(new Nigromante("Malachar", 8, 250, 60, "Arte demoniaca"));
         gremio.agregarMiembro(new Arquero("Legolas", 6, 150, "Arco", 20, 95));
         gremio.agregarMiembro(new Guerrero("Thorin", 12, 400, 80, "Cota de malla"));
         gremio.mostrarRoster();

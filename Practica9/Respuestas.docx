@@ -1,0 +1,47 @@
+1. Diferencia entre FileWriter(archivo) y FileWriter(archivo, true) (Bitácora)
+
+    FileWriter(archivo): Abre el archivo en modo de sobrescritura. 
+    Si el archivo ya existe, borra todo su contenido anterior y comienza a escribir desde el principio.
+
+    FileWriter(archivo, true): Abre el archivo en modo append (añadir). 
+    Si el archivo existe, respeta el contenido previo y agrega los nuevos datos al final del archivo.
+
+    ¿Qué pasaría con la bitácora si usaras el primero?
+    Si usaras FileWriter(archivo) sin el true, cada nueva entrada borraría la anterior.
+    Al final, la bitácora solo conservaría la última batalla registrada, perdiendo todo el historial acumulado de los eventos anteriores.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+2. Verificar existencia antes de leer y la excepción lanzada
+    Importancia: Permite que el programa maneje la situación de manera elegante
+    (por ejemplo, imprimiendo un mensaje informativo como "El archivo no existe, se retorna una lista vacía")
+        en lugar de que el programa colapse o falle inesperadamente al intentar abrir un recurso inexistente.
+
+    Excepción de Java: Si intentas abrir un archivo para lectura (new FileReader(archivo)) sin verificar y este no existe, Java 
+        lanza una excepción llamada FileNotFoundException (la cual es una subclase de IOException).
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+3. Ventaja de BufferedReader sobre FileReader y el "Buffer"
+    Ventajas:
+
+    Rendimiento: Reduce drásticamente el número de accesos al disco duro.
+    Comodidad: Proporciona métodos muy útiles como readLine(), que permite leer líneas completas de texto de forma directa, algo que 
+        con FileReader requeriría lógica manual compleja carácter por carácter.
+
+    ¿Qué hace el "buffer"?
+    El búfer es un espacio temporal de memoria RAM. En lugar de ir al disco físico cada vez que se solicita un carácter o una línea
+        (lo cual es muy lento), el BufferedReader lee un bloque grande de datos del archivo y lo almacena en la memoria RAM.
+        Las lecturas posteriores se hacen directamente desde esta memoria rápida, optimizando el rendimiento de Entrada/Salida (I/O).
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+4. Enums en Java y Clases Similares de I/O
+    ¿Para qué sirven los Enums en Java?
+    Un enum (enumeración) es un tipo de dato especial que se utiliza para definir un conjunto fijo de constantes con nombre
+    (por ejemplo: los días de la semana, los palos de una baraja, o las clases de personajes como GUERRERO, ARQUERO, DRUIDA).
+    
+    Sirven para:
+    Restringir los valores posibles que puede tomar una variable, evitando errores de dedo o valores inválidos.
+    Mejorar la legibilidad del código.
+    Proveer seguridad de tipos (type safety).

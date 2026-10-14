@@ -1,0 +1,53 @@
+1. ¿Cuál es la diferencia entre extends Thread e implements Runnable? ¿Cuándo preferirías uno sobre el otro?
+    extends Thread: La clase hereda directamente de la clase Thread.
+        Esto significa que ya no puede heredar de ninguna otra clase, ya que Java no soporta herencia múltiple de clases.
+
+    implements Runnable: La clase implementa la interfaz Runnable, lo que significa que solo define la tarea a realizar
+        (el método run()), pero la clase sigue teniendo la libertad de heredar de otra clase si lo necesita.
+
+¿Cuándo preferirías uno sobre el otro?
+
+    Prefiere implements Runnable casi siempre. Es la mejor práctica en programación orientada a objetos porque separa la tarea
+        (la lógica del hilo) del mecanismo de ejecución (el objeto Thread).
+
+    Usa extends Thread únicamente en casos muy sencillos o específicos donde estés creando una clase que represente intrínsecamente
+        a un hilo de control especializado (como hiciste con MonitorTorneo).
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. ¿Qué es una race condition? Explica con el ejemplo del ContadorCompartido por qué el resultado sin synchronized puede ser menor a 5000.
+    Una condición de carrera (race condition) ocurre cuando dos o más hilos acceden a un recurso compartido
+        (en este caso, la variable contador) de manera simultánea, y al menos uno de ellos está escribiendo (modificando) el valor,
+        lo que genera resultados impredecibles o incorrectos dependiendo del orden de ejecución de los hilos.
+
+    ¿Por qué el resultado sin synchronized es menor a 5000?
+    Aunque la operación contador++ se ve como una sola línea de código, a nivel de lenguaje de máquina (bytecode)no es una operación
+    atómica, sino que consta de tres pasos:
+
+        - Leer el valor actual del contador desde la memoria.
+
+        - Incrementar ese valor en 1.
+
+        - Escribir el nuevo valor de vuelta en la memoria.
+
+    Si dos hilos (Hilo A e Hilo B) ejecutan incrementar() al mismo tiempo:
+
+        - Ambos hilos leen el valor actual (por ejemplo, 100).
+
+        - El Hilo A le suma 1 y escribe 101.
+
+        - El Hilo B también le suma 1 a lo que leyó (también 101) y escribe 101.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. ¿Para qué sirve join()? ¿Qué pasaría si quitaras los join() antes de llamar tabla.mostrarResultados()?
+    El método join() le indica al hilo actual (en este caso, el hilo main) que debe esperar a que el hilo sobre el cual se invoca
+    termine su ejecución antes de continuar con la siguiente línea de código.
+
+    ¿Qué pasaría si quitaras los join() de los combates antes de mostrar los resultados?
+
+        Se produciría un problema de sincronización (timing): El hilo principal (main) continuaría ejecutándose de inmediato sin esperar
+        a que los hilos de los combates terminen.
+
+        Como resultado, la línea tabla.mostrarResultados() se ejecutaría antes de que los combates siquiera hubieran terminado de
+        calcularse o de registrar sus ganadores. La tabla saldría vacía o con un número incompleto de resultados impresos en pantalla.

@@ -1,0 +1,18 @@
+1. ¿Qué hace @Entity? ¿Por qué se requiere el constructor vacío?
+    Le indica a JPA (Java Persistence API) que la clase Java está asociada a una tabla de base de datos relacional.
+    Y se requiere porque, JPA utiliza un mecanismo interno llamado Reflection para instanciar objetos de tus entidades cuando recupera 
+        datos de la base de datos (por ejemplo, al ejecutar un findAll()).
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+2. ¿Por qué ContactoRepository no tiene ningún método escrito pero aun así puedes llamar findAll() y save()?
+    Esto ocurre porque tu interfaz ContactoRepository extiende de una interfaz de Spring Data JPA (como JpaRepository o CrudRepository).
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+3. ¿Qué diferencia hay entre @GetMapping y @PostMapping? ¿Cuándo usarías cada uno?
+    @GetMapping: Se utiliza para manejar solicitudes HTTP GET.
+            Uso: Para consultar o recuperar información sin alterar el estado del servidor.
+
+    @PostMapping: Se utiliza para manejar solicitudes HTTP POST.
+             Uso: Para enviar datos sensibles o masivos que modificarán el estado de la base de datos        

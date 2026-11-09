@@ -1,0 +1,48 @@
+1. ¿Por qué agregamos la capa Service? ¿Qué problema resuelve tener el Controller hablando directo con el Repository?
+    Agregamos la capa Service para separar las responsabilidades del programa y organizar mejor el código. 
+    Si el Controller hablara directamente con el Repository, tendría demasiadas responsabilidades y el código estaría más acoplado.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+2. El formulario formulario.html sirve tanto para crear como para editar. ¿Cómo sabe Thymeleaf si mostrar "Nuevo Contacto" o 
+  "Editar Contacto"? ¿Qué papel juega el campo `<input type="hidden" th:field="*{id}" />`?
+    Thymeleaf utiliza una condición para revisar si el atributo `id` del objeto contacto tiene un valor.
+        - Si el `id` es `null`, significa que se está creando un contacto nuevo y muestra "Nuevo Contacto".
+        - Si el `id` tiene un valor, significa que se está editando un contacto existente y muestra "Editar Contacto".
+    El campo `<input type="hidden" th:field="*{id}" />` almacena el identificador del contacto de manera oculta en el formulario. 
+    Cuando se envía la información, permite que el sistema sepa qué contacto se está modificando y evita que se confunda con un registro nuevo.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+3. repo.save(contacto) hace INSERT cuando el contacto es nuevo y UPDATE cuando ya existe. ¿Cómo sabe JPA la diferencia?
+    JPA utiliza el identificador (`id`) de la entidad para determinar si debe insertar o actualizar un registro.
+        - Si el contacto no tiene un identificador (`id` es `null`), JPA lo considera un registro nuevo y realiza un `INSERT` en la base de datos.
+        - Si el contacto ya tiene un identificador, JPA reconoce que corresponde a un registro existente y realiza un `UPDATE`.
+    De esta manera, el método `save()` permite guardar y actualizar información sin tener que escribir instrucciones SQL diferentes para cada operación.
+
+
+    Explicar la clase Service.
+    La clase Service es la encargada de manejar la lógica del negocio de la aplicación. Funciona como intermediaria entre el Controller y el Repository.
+    En esta clase se pueden definir métodos para:
+        - Obtener todos los contactos.
+        - Buscar un contacto por su identificador.
+        - Guardar un contacto nuevo.
+        - Actualizar un contacto existente.
+        - Eliminar un contacto.
+    Generalmente se utiliza la anotación `@Service` para indicar que Spring debe reconocer la clase como un componente de servicio y administrarla automáticamente.
+
+
+    Explicar @PostMapping.
+    `@PostMapping` es una anotación de Spring Boot que permite manejar solicitudes HTTP de tipo POST.
+    Se utiliza principalmente cuando el usuario envía información desde un formulario para crear o guardar un registro en la base de datos.
+    Por ejemplo, cuando se llena el formulario de un contacto y se presiona el botón Guardar, el método marcado con `@PostMapping` recibe los datos y puede enviarlos a la capa Service para procesarlos.
+
+
+    Explicar @GetMapping.
+    `@GetMapping` es una anotación de Spring Boot que permite manejar solicitudes HTTP de tipo GET.
+    Se utiliza para obtener o consultar información y mostrar páginas al usuario.
+    Por ejemplo, puede utilizarse para:
+        - Mostrar la lista de contactos.
+        - Abrir el formulario para registrar un contacto nuevo.
+        - Buscar un contacto para editarlo.
+    En resumen, `@GetMapping` se utiliza para consultar o mostrar información, mientras que `@PostMapping` se utiliza para enviar información al servidor.

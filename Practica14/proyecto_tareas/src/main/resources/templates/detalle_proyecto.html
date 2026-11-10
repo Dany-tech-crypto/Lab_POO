@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Proyecto</title>
+    <style>
+        body  { font-family: Arial, sans-serif; background: #1a1a2e; color: #e0e0e0; margin: 0; padding: 40px; display: flex; justify-content: center; }
+        .container { width: 900px; }
+        .header-box { background: #16213e; padding: 24px; border-radius: 12px; border: 1px solid #4a90d9; margin-bottom: 24px; }
+        h1    { color: #f0c040; margin-top: 0; }
+        p     { color: #aaa; }
+        .grid-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
+        .caja { background: #16213e; padding: 24px; border-radius: 12px; border: 1px solid #4a90d9; }
+        label { display: block; margin-bottom: 4px; color: #aaa; font-size: .9em; }
+        input, select, textarea { width: 100%; padding: 10px; margin-bottom: 14px; background: #0f3460; border: 1px solid #4a90d9; border-radius: 6px; color: #fff; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #4a90d9; border: none; border-radius: 6px; color: white; font-size: 1em; cursor: pointer; }
+        button:hover { background: #357abd; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #0f3460; font-size: .9em; }
+        th { color: #f0c040; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; background: #0f3460; border: 1px solid #4a90d9; }
+        a.back { display: inline-block; margin-bottom: 16px; color: #4a90d9; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/proyectos" class="back">← Volver a Proyectos</a>
+
+        <div class="header-box">
+            <h1 th:text="${proyecto.nombre}">Nombre del Proyecto</h1>
+            <p th:text="${proyecto.descripcion}">Descripción detallada del proyecto...</p>
+        </div>
+
+        <div class="grid-layout">
+            <!-- Formulario para agregar Tarea -->
+            <div class="caja">
+                <h3 style="color: #f0c040; margin-top: 0;">Nueva Tarea</h3>
+                <form th:action="@{/proyectos/{id}/tareas/guardar(id=${proyecto.id})}" th:object="${tarea}" method="post">
+                    <label>Título</label>
+                    <input type="text" th:field="*{titulo}" placeholder="Ej. Diseñar base de datos" required />
+
+                    <label>Descripción</label>
+                    <textarea th:field="*{descripcion}" placeholder="Detalles de la tarea..." rows="2"></textarea>
+
+                    <label>Estado</label>
+                    <select th:field="*{estado}">
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="EN_PROCESO">EN PROCESO</option>
+                        <option value="COMPLETADO">COMPLETADO</option>
+                    </select>
+
+                    <label>Fecha Límite</label>
+                    <input type="date" th:field="*{fechaLimite}" />
+
+                    <button type="submit">Agregar Tarea</button>
+                </form>
+            </div>
+
+            <!-- Listado de Tareas del Proyecto -->
+            <div class="caja">
+                <h3 style="color: #f0c040; margin-top: 0;">Tareas del Tablero</h3>
+                
+                <div th:if="${proyecto.tareas.empty}" style="color: #888; text-align: center; padding: 30px;">
+                    No hay tareas en este proyecto todavía.
+                </div>
+
+                <table th:unless="${proyecto.tareas.empty}">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="t : ${proyecto.tareas}">
+                            <td>
+                                <strong th:text="${t.titulo}">Título</strong><br/>
+                                <small th:text="${t.descripcion}" style="color: #888;">Descripción</small>
+                            </td>
+                            <td>
+                                <span class="badge" th:text="${t.estado}">PENDIENTE</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/tareas/eliminar/{id}(id=${t.id})}" style="color: #ff6b6b; text-decoration: none; font-size: .9em;">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

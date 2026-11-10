@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Proyectos</title>
+    <style>
+        body  { font-family: Arial, sans-serif; background: #1a1a2e; color: #e0e0e0; margin: 0; padding: 40px; display: flex; justify-content: center; }
+        .container { width: 800px; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        h1    { color: #f0c040; margin: 0; }
+        .btn  { background: #4a90d9; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-size: .9em; }
+        .btn:hover { background: #357abd; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+        .card { background: #16213e; padding: 20px; border-radius: 12px; border: 1px solid #4a90d9; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { color: #f0c040; margin-top: 0; margin-bottom: 8px; }
+        .card p  { color: #aaa; font-size: .9em; margin-bottom: 16px; }
+        .empty { text-align: center; color: #888; padding: 40px; background: #16213e; border-radius: 12px; border: 1px dashed #4a90d9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗂️ Mis Proyectos (Trello)</h1>
+            <a href="/proyectos/nuevo" class="btn">+ Nuevo Proyecto</a>
+        </header>
+
+        <!-- Mensaje si no hay proyectos -->
+        <div class="empty" th:if="${proyectos.empty}">
+            <p>No tienes ningún proyecto creado todavía.</p>
+        </div>
+
+        <!-- Cuadrícula de proyectos -->
+        <div class="grid" th:unless="${proyectos.empty}">
+            <div class="card" th:each="p : ${proyectos}">
+                <div>
+                    <h3 th:text="${p.nombre}">Nombre del Proyecto</h3>
+                    <p th:text="${p.descripcion}">Descripción corta del proyecto...</p>
+                </div>
+                <a th:href="@{/proyectos/{id}(id=${p.id})}" class="btn" style="text-align: center;">Ver Tablero →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
